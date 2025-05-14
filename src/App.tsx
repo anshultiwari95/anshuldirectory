@@ -199,8 +199,7 @@ function App() {
                   ))}
                 </Routes>
               </Suspense>
-            </main>
-            
+            </main>            
             <Footer />
           </div>
         </Router>
