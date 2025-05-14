@@ -1,0 +1,12 @@
+{
+    "name": "Personal Directory",
+    "short_name": "PDir",
+    "description": "A personal directory application to manage contacts",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#3b82f6",
+    "icons": [
+      
+    ]
+  }

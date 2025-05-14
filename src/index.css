@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  color: white;
+  height: 100%;
+  background-color: black; /* Default background for all pages */
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* Make sure background transitions only affect home page */
+#background-transition-element {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -10;
+  transition: background-color 0.8s ease;
+}
+
+/* Remove fixed position from smooth wrapper to enable normal scrolling */
+.smooth-wrapper {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.smooth-content {
+  width: 100%;
+}
+
+.perspective-500 {
+  perspective: 500px;
+}
