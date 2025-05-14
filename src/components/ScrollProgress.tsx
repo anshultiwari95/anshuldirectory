@@ -7,22 +7,22 @@ const ScrollProgress = () => {
     const handleScroll = () => {
       if (!progressBarRef.current) return;
       
-      // Calculate how far down the page the user has scrolled
+      
       const windowScroll = window.scrollY;
       const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercentage = (windowScroll / windowHeight) * 100;
       
-      // Update the width of the progress bar
+      
       progressBarRef.current.style.height = `${scrollPercentage}%`;
       
-      // Update glow based on scroll position
+      
       const glowIntensity = Math.min(5 + scrollPercentage / 5, 20);
       progressBarRef.current.style.boxShadow = `0 0 ${glowIntensity}px 0 rgba(255,255,255,0.7)`;
     };
     
     window.addEventListener('scroll', handleScroll);
     
-    // Call once to set initial state
+   
     handleScroll();
     
     return () => window.removeEventListener('scroll', handleScroll);

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Banner from '../components/Banner';
 import PhoneBanner from '../components/PhoneBanner';
 import EmailBanner from '../components/EmailBanner';
-// import ScrollProgress from '../components/ScrollProgress';
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,12 +16,12 @@ const PersonHome = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    setIsLoaded(true); // Mark as loaded for SSR compatibility
+    setIsLoaded(true); 
     
     if (typeof window === 'undefined') return;
     
     const ctx = gsap.context(() => {
-      // Scroll-triggered animation for text
+      
       gsap.fromTo(
         textRef.current,
         {
@@ -41,7 +41,7 @@ const PersonHome = () => {
         }
       );
 
-      // Animation for CTA section
+      
       gsap.fromTo(
         ctaRef.current,
         {
@@ -61,14 +61,14 @@ const PersonHome = () => {
     return () => ctx.revert();
   }, []);
 
-  // Use custom hook for checking viewport size
+  
   const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
 
   return (
     <>
-      {/* <ScrollProgress /> */}
+      
       <div className="text-white w-full" ref={sectionRef}>
-        {/* Hero section with black background */}
+        
         <div className="section-hero container mx-auto px-4 py-16 md:py-32 lg:py-44 bg-black">
           <Banner />
           <p
@@ -97,7 +97,7 @@ const PersonHome = () => {
           </div>
         </div>
         
-        {/* PhoneBanner and EmailBanner with responsive props */}
+        
         {isLoaded && (
           <>
             <PhoneBanner 

@@ -5,10 +5,10 @@ import Footer from './components/Footer';
 import { PersonProvider } from './context/PersonContext';
 import './App.css';
 
-// Constants for application configuration
+
 const APP_CONFIG = {
   queryClient: {
-    staleTime: 1000 * 60 * 5, // 5 minutes
+    staleTime: 1000 * 60 * 5, 
     refetchOnWindowFocus: false,
     retry: 1,
   },
@@ -20,7 +20,7 @@ const APP_CONFIG = {
   }
 };
 
-// Lazy load pages for code splitting and better performance
+
 const LazyComponents = {
   PersonHome: lazy(() => import('./pages/PersonHome')),
   PersonAdd: lazy(() => import('./pages/PersonAdd')),
@@ -28,7 +28,7 @@ const LazyComponents = {
   TestPage: lazy(() => import('./pages/TestPage')),
 };
 
-// Create a queryClient with optimized settings
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -40,7 +40,7 @@ const queryClient = new QueryClient({
   },
 });
 
-// Navigation link interface for type safety
+
 interface NavLinkProps {
   to: string;
   children: React.ReactNode;
@@ -48,7 +48,7 @@ interface NavLinkProps {
   className?: string;
 }
 
-// Memoized NavLink component for better performance
+
 const NavLink = memo(({ to, children, onClick, className = "" }: NavLinkProps) => (
   <Link
     to={to}
@@ -61,7 +61,7 @@ const NavLink = memo(({ to, children, onClick, className = "" }: NavLinkProps) =
 
 NavLink.displayName = 'NavLink';
 
-// Loading indicator
+
 const LoadingFallback = memo(() => (
   <div className="flex items-center justify-center min-h-screen">
     <div className="animate-pulse flex flex-col items-center">
@@ -73,7 +73,7 @@ const LoadingFallback = memo(() => (
 
 LoadingFallback.displayName = 'LoadingFallback';
 
-// Navigation items definition for easier management
+
 const navigationItems = [
   { label: 'Home', path: APP_CONFIG.routes.home },
   { label: 'Add Person', path: APP_CONFIG.routes.add },
@@ -83,10 +83,10 @@ const navigationItems = [
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Handle window resize for responsive behavior
+  
   useEffect(() => {
     const handleResize = () => {
-      // Close mobile menu if window is resized to desktop view
+      
       if (window.innerWidth >= 768 && mobileMenuOpen) {
         setMobileMenuOpen(false);
       }
@@ -104,7 +104,7 @@ function App() {
     setMobileMenuOpen(false);
   }, []);
 
-  // Memoize routes to prevent unnecessary rerenders
+
   const appRoutes = useMemo(() => [
     { path: APP_CONFIG.routes.home, element: <LazyComponents.PersonHome /> },
     { path: APP_CONFIG.routes.add, element: <LazyComponents.PersonAdd /> },
@@ -119,7 +119,7 @@ function App() {
           <div className="min-h-screen text-white flex flex-col bg-black">
             <nav className="sticky top-0 bg-black shadow-md z-10">
               <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-                {/* Logo */}
+                
                 <Link 
                   to="/" 
                   className="group relative flex items-center"
@@ -133,13 +133,13 @@ function App() {
                     DIRECTORY
                   </span>
                   
-                  {/* Tooltip */}
+                  
                   <span className="absolute top-full left-0 mt-1 text-white text-sm font-light opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     Anshul's Directory
                   </span>
                 </Link>
 
-                {/* Desktop Navigation - ONLY VISIBLE FROM MD BREAKPOINT UP */}
+               
                 <div className="!hidden md:!flex items-center space-x-8">
                   {navigationItems.map(item => (
                     <NavLink 
@@ -152,7 +152,7 @@ function App() {
                   ))}
                 </div>
 
-                {/* Mobile menu button - ONLY VISIBLE BELOW MD */}
+          
                 <button 
                   className="md:hidden text-white focus:outline-none"
                   onClick={toggleMenu}
@@ -168,7 +168,7 @@ function App() {
                 </button>
               </div>
 
-              {/* Mobile menu dropdown - ONLY SHOWN WHEN OPEN AND BELOW MD BREAKPOINT */}
+              
               {mobileMenuOpen && (
                 <div className="md:hidden bg-gray-900 py-4 px-4 shadow-lg w-full">
                   <div className="flex flex-row sm:flex-col justify-center items-center sm:items-start space-y-0 sm:space-y-4 space-x-6 sm:space-x-0">

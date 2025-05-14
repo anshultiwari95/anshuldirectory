@@ -11,15 +11,15 @@ interface BannerProps {
   fontMapping?: Record<string, string>;
 }
 
-// Language-specific font mapping in a separate constant for maintainability
+
 const DEFAULT_FONT_MAPPING: Record<string, string> = {
-  'λεξικόν': "'Playfair Display', serif", // Greek
-  'دفتر': "'Poppins', sans-serif", // Arabic/Persian
-  'سِجل': "'Poppins', sans-serif", // Arabic/Persian
-  'सूची': "'Montserrat', sans-serif", // Hindi
-  '資料': "'Oswald', sans-serif", // Chinese
-  '일기': "'Montserrat', sans-serif", // Korean
-  'DEFAULT': "'Oswald', sans-serif" // Default for English
+  'λεξικόν': "'Playfair Display', serif", 
+  'دفتر': "'Poppins', sans-serif", 
+  'سِجل': "'Poppins', sans-serif", 
+  'सूची': "'Montserrat', sans-serif", 
+  '資料': "'Oswald', sans-serif", 
+  '일기': "'Montserrat', sans-serif", 
+  'DEFAULT': "'Oswald', sans-serif" 
 };
 
 const Banner = memo(({ 
@@ -39,7 +39,7 @@ const Banner = memo(({
   const intervalRef = useRef<number | null>(null);
   const animationTimeoutRef = useRef<number | null>(null);
   
-  // Get font for current word - memoized for performance
+  
   const currentFont = useMemo(() => {
     if (completed) {
       return fontMapping.DEFAULT || "'Oswald', sans-serif";
@@ -48,9 +48,8 @@ const Banner = memo(({
     return fontMapping[displayText] || fontMapping.DEFAULT || "'Oswald', sans-serif";
   }, [displayText, completed, fontMapping]);
   
-  // Reset animation function
   const resetAnimation = () => {
-    // Clear any existing interval and timeout
+   
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
@@ -61,13 +60,13 @@ const Banner = memo(({
       animationTimeoutRef.current = null;
     }
     
-    // Reset state
+  
     setCurrentIndex(0);
     setDisplayText(words[0]);
     setCompleted(false);
     setAnimationInitialized(false);
     
-    // Trigger initial animation
+    
     if (bannerRef.current) {
       gsap.set(bannerRef.current, { clearProps: "all" });
       gsap.fromTo(
@@ -78,7 +77,7 @@ const Banner = memo(({
     }
   };
   
-  // Set up scroll trigger to detect when banner is in view
+
   useEffect(() => {
     if (typeof window === 'undefined') return;
     
@@ -95,7 +94,7 @@ const Banner = memo(({
       onLeave: () => setInView(false),
       onEnterBack: () => {
         setInView(true);
-        resetAnimation(); // Reset animation when scrolling back up
+        resetAnimation(); 
       },
       onLeaveBack: () => setInView(false)
     });
@@ -105,7 +104,7 @@ const Banner = memo(({
     };
   }, [animationInitialized, words]);
   
-  // Clean up all timeouts and intervals on unmount
+  
   useEffect(() => {
     return () => {
       if (intervalRef.current) {
@@ -118,27 +117,27 @@ const Banner = memo(({
     };
   }, []);
   
-  // Set up the flip animation
+  
   useEffect(() => {
     if (completed || !inView || !animationInitialized || typeof window === 'undefined') {
-      // If we're already completed or not in view, don't set up new intervals
+      
       return;
     }
     
-    // Clear any existing interval
+    
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
     
     intervalRef.current = window.setInterval(() => {
       if (currentIndex >= words.length - 1) {
-        // We're at the last word, clear interval and show final word
+        
         if (intervalRef.current) {
           clearInterval(intervalRef.current);
           intervalRef.current = null;
         }
         
-        // Final flip animation
+      
         gsap.to(bannerRef.current, {
           duration: 0.25,
           opacity: 0,
@@ -148,7 +147,7 @@ const Banner = memo(({
             setDisplayText(finalWord);
             setCompleted(true);
             
-            // Special animations for the final word
+       
             gsap.fromTo(
               bannerRef.current, 
               { 
@@ -171,7 +170,7 @@ const Banner = memo(({
           }
         });
       } else {
-        // Normal flip animation for intermediate words
+        
         gsap.to(bannerRef.current, {
           duration: 0.25,
           opacity: 0,
@@ -180,7 +179,7 @@ const Banner = memo(({
           onComplete: () => {
             setDisplayText(words[currentIndex + 1]);
             
-            // Flip in animation for intermediate words
+           
             gsap.fromTo(
               bannerRef.current, 
               { opacity: 0, y: 50, rotationX: -90 },
@@ -225,7 +224,6 @@ const Banner = memo(({
   );
 });
 
-// Display name for debugging
 Banner.displayName = 'Banner';
 
 export default Banner; 

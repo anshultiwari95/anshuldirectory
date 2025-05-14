@@ -1,4 +1,3 @@
-// Not using background transitions anymore
 const BackgroundTransition = () => {
   return null;
 };

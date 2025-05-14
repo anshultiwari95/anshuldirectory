@@ -14,7 +14,7 @@ html, body {
   overflow-x: hidden;
   color: white;
   height: 100%;
-  background-color: black; /* Default background for all pages */
+  background-color: black; 
 }
 
 body {
@@ -22,7 +22,7 @@ body {
   min-height: 100vh;
 }
 
-/* Make sure background transitions only affect home page */
+
 #background-transition-element {
   position: fixed;
   top: 0;
@@ -33,7 +33,7 @@ body {
   transition: background-color 0.8s ease;
 }
 
-/* Remove fixed position from smooth wrapper to enable normal scrolling */
+
 .smooth-wrapper {
   width: 100%;
   min-height: 100vh;

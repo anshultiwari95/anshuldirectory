@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Define prop interface for reusability
+
 interface PhoneBannerProps {
   imageUrl?: string;
   title?: string;
@@ -12,7 +12,7 @@ interface PhoneBannerProps {
   backgroundColor?: string;
 }
 
-// Create a public URL for the phone image
+
 const DEFAULT_PHONE_IMAGE = '/redPhone.png';
 
 const PhoneBanner = memo(({
@@ -27,12 +27,12 @@ const PhoneBanner = memo(({
   const titleRef = useRef<HTMLHeadingElement>(null);
   
   useEffect(() => {
-    // Abort controller for cleanup
+    
     const controller = new AbortController();
     
     const setupAnimations = () => {
       const ctx = gsap.context(() => {
-        // Create a scroll-linked animation for the phone
+        
         const phoneTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -54,7 +54,7 @@ const PhoneBanner = memo(({
           }
         });
         
-        // Animate the phone based on scroll position
+        
         phoneTimeline.fromTo(
           imageRef.current,
           { 
@@ -70,7 +70,6 @@ const PhoneBanner = memo(({
           }
         );
         
-        // Animate the title and text with a single timeline for better performance
         const textTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -90,7 +89,7 @@ const PhoneBanner = memo(({
             textRef.current,
             { y: 30, opacity: 0 },
             { y: 0, opacity: 1, duration: 1 },
-            "-=0.5" // Start slightly before the title animation finishes
+            "-=0.5" 
           );
       });
       
@@ -99,7 +98,6 @@ const PhoneBanner = memo(({
       };
     };
 
-    // Only set up animations if we're in a browser environment and the refs are available
     if (typeof window !== 'undefined' && sectionRef.current && imageRef.current) {
       setupAnimations();
     }
@@ -116,7 +114,7 @@ const PhoneBanner = memo(({
       style={{ backgroundColor }}
     >
       <div className="absolute left-0 right-0 top-0 bottom-0 flex items-center justify-center z-10 pointer-events-none">
-        {/* Image that appears on scroll */}
+        
         <img
           ref={imageRef}
           src={imageUrl}
@@ -149,7 +147,6 @@ const PhoneBanner = memo(({
   );
 });
 
-// Display name for debugging
 PhoneBanner.displayName = 'PhoneBanner';
 
 export default PhoneBanner; 

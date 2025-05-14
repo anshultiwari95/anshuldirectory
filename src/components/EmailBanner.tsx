@@ -4,7 +4,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Define prop interface for reusability
 interface EmailBannerProps {
   imageUrl?: string;
   title?: string;
@@ -12,7 +11,6 @@ interface EmailBannerProps {
   backgroundColor?: string;
 }
 
-// Create a public URL for the email image
 const DEFAULT_EMAIL_IMAGE = '/email.png';
 
 const EmailBanner = memo(({
@@ -27,12 +25,12 @@ const EmailBanner = memo(({
   const titleRef = useRef<HTMLHeadingElement>(null);
   
   useEffect(() => {
-    // Abort controller for cleanup
+    
     const controller = new AbortController();
     
     const setupAnimations = () => {
       const ctx = gsap.context(() => {
-        // Create a scroll-linked animation for the email
+      
         const emailTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -48,7 +46,6 @@ const EmailBanner = memo(({
           }
         });
         
-        // Animate the email based on scroll position - from left to right
         emailTimeline.fromTo(
           imageRef.current,
           { 
@@ -64,7 +61,6 @@ const EmailBanner = memo(({
           }
         );
         
-        // Animate the title and text with a single timeline for better performance
         const textTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -84,7 +80,7 @@ const EmailBanner = memo(({
             textRef.current,
             { y: 30, opacity: 0 },
             { y: 0, opacity: 1, duration: 1 },
-            "-=0.5" // Start slightly before the title animation finishes
+            "-=0.5" 
           );
       });
       
@@ -93,7 +89,6 @@ const EmailBanner = memo(({
       };
     };
 
-    // Only set up animations if we're in a browser environment and the refs are available
     if (typeof window !== 'undefined' && sectionRef.current && imageRef.current) {
       setupAnimations();
     }
@@ -110,7 +105,7 @@ const EmailBanner = memo(({
       style={{ backgroundColor }}
     >
       <div className="absolute left-0 right-0 top-0 bottom-0 flex items-center justify-center z-10 pointer-events-none">
-        {/* Email image that appears on scroll */}
+       
         <img
           ref={imageRef}
           src={imageUrl}
@@ -144,7 +139,6 @@ const EmailBanner = memo(({
   );
 });
 
-// Display name for debugging
 EmailBanner.displayName = 'EmailBanner';
 
 export default EmailBanner; 

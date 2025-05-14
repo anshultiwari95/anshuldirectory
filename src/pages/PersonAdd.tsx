@@ -44,7 +44,7 @@ const PersonAdd = () => {
   };
 
   const handleAddAnother = () => {
-    reset(); // Reset form
+    reset(); 
     setShowModal(false);
   };
 
@@ -57,7 +57,7 @@ const PersonAdd = () => {
       <div className="w-full max-w-sm sm:max-w-md md:max-w-lg bg-[#1e293b]/70 backdrop-blur-sm rounded-xl sm:rounded-2xl shadow-xl shadow-slate-900/40 border border-slate-700/50 p-6 sm:p-8 md:py-10">
         <h2 className="text-2xl sm:text-3xl font-bold text-center text-slate-100 mb-6 sm:mb-8">Add New Person</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
-          {/* Basic Fields */}
+          
           {[
             { name: 'firstName', label: 'First Name', type: 'text', placeholder: 'Enter first name' },
             { name: 'lastName', label: 'Last Name', type: 'text', placeholder: 'Enter last name' },
@@ -77,7 +77,7 @@ const PersonAdd = () => {
             </div>
           ))}
 
-          {/* Phone */}
+          
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-1 sm:mb-2">Phone</label>
             <Controller
@@ -96,7 +96,7 @@ const PersonAdd = () => {
             {errors.phone && <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-red-400">{errors.phone.message}</p>}
           </div>
 
-          {/* State */}
+          
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-1 sm:mb-2">State</label>
             <div className="relative">
@@ -129,7 +129,7 @@ const PersonAdd = () => {
             {errors.state && <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-red-400">{errors.state.message}</p>}
           </div>
 
-          {/* City */}
+        
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-1 sm:mb-2">City</label>
             <div className="relative">
@@ -164,7 +164,7 @@ const PersonAdd = () => {
             {errors.city && <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-red-400">{errors.city.message}</p>}
           </div>
 
-          {/* Submit Button */}
+          
           <button
             type="submit"
             className="w-full mt-6 sm:mt-8 bg-gradient-to-r from-violet-500 to-indigo-500 text-white font-semibold tracking-wide py-2.5 sm:py-3 px-4 sm:px-6 rounded-full transition-all duration-300 shadow-lg border border-transparent hover:border-violet-500 hover:shadow-violet-500/30 hover:brightness-110 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 focus:ring-offset-slate-900"
@@ -174,7 +174,7 @@ const PersonAdd = () => {
         </form>
       </div>
 
-      {/* Confirmation Modal */}
+      
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm p-4">
           <div className="bg-[#1f1f1f] p-6 sm:p-8 rounded-xl border border-gray-700 shadow-2xl w-full max-w-xs sm:max-w-sm md:max-w-md text-center animate-fade-in">

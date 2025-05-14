@@ -25,7 +25,7 @@ const PersonList = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Add event listener to handle clicks outside the modal
+ 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (isDeleting && modalRef.current && !modalRef.current.contains(event.target as Node)) {
@@ -33,18 +33,18 @@ const PersonList = () => {
       }
     };
 
-    // Add event listener when modal is open
+    
     if (isDeleting) {
       document.addEventListener('mousedown', handleClickOutside);
     }
 
-    // Clean up
+    
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isDeleting]);
 
-  // Add escape key handler
+  
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (isDeleting && event.key === 'Escape') {
@@ -91,14 +91,14 @@ const PersonList = () => {
       } catch (error) {
         console.error('Error deleting person:', error);
       } finally {
-        // Ensure state is reset even if deletion fails
+        
         handleDeleteCancel();
       }
     }
   }, [personToDelete, deletePerson]);
 
   const handleDeleteCancel = useCallback(() => {
-    // Use a timeout to ensure smooth animation for modal closing
+    
     document.body.classList.add('modal-closing');
     
     setTimeout(() => {
@@ -121,7 +121,7 @@ const PersonList = () => {
       });
   }, []);
 
-  // Column width styles
+  
   const colWidths = {
     name: 'w-[20%]',
     email: 'w-[30%]',
@@ -145,7 +145,7 @@ const PersonList = () => {
       <div className="max-w-7xl mx-auto">
         <h2 className="text-5xl font-bold text-center mb-12 animate-fade-in mt-8">Person Directory</h2>
 
-        {/* Animated Search Bar - Only show when there are people in the list */}
+        
         {people.length > 0 && (
           <div className="mb-10 flex justify-center">
             <div className="flex items-center bg-[#1f2937] border border-gray-700 rounded-full transition-all duration-300 overflow-hidden w-fit focus-within:ring-2 focus-within:ring-violet-500 hover:shadow-lg hover:shadow-violet-500/20">
@@ -166,7 +166,7 @@ const PersonList = () => {
           </div>
         )}
 
-        {/* Empty State with Cactus - Show when no people in the list */}
+        
         {people.length === 0 ? (
           <div className="overflow-hidden shadow-xl animate-fade-in">
             <div className="flex flex-col items-center justify-center py-20">
@@ -184,7 +184,7 @@ const PersonList = () => {
             </div>
           </div>
         ) : (
-          /* Table - Only show when there are people */
+          
           <div className="overflow-x-auto animate-fade-in">
             <div className="inline-block min-w-full align-middle">
               <div className="overflow-hidden shadow-xl ring-1 ring-gray-700 ring-opacity-5 rounded-lg">
@@ -236,10 +236,10 @@ const PersonList = () => {
                           key={person.id} 
                           className={`${index % 2 === 0 ? 'bg-zinc-800' : 'bg-zinc-900'} hover:bg-[#2d3748] transition duration-200 cursor-pointer`}
                         >
-                          <td className={`px-6 py-4 text-sm text-center text-white font-medium break-words ${colWidths.name}`}>
+                          <td className={`px-6 py-4 text-sm text-center justify-items-center  text-white font-medium break-words ${colWidths.name}`}>
                             {person.firstName} {person.lastName}
                           </td>
-                          <td className={`px-6 py-4 text-sm text-slate-300 break-words ${colWidths.email}`}>
+                          <td className={`px-6 py-4 text-sm justify-items-center items-center text-slate-300 break-words ${colWidths.email}`}>
                             <div className="flex items-center justify-between group">
                               <span 
                                 onClick={() => handleCopyClick(person.email, `email-${person.id}`)}
@@ -261,7 +261,7 @@ const PersonList = () => {
                               </button>
                             </div>
                           </td>
-                          <td className={`px-6 py-4 text-sm text-slate-300 break-words ${colWidths.phone}`}>
+                          <td className={`px-6 py-4 text-sm text-slate-300 justify-items-center break-words ${colWidths.phone}`}>
                             <div className="flex items-center justify-between group">
                               <span 
                                 onClick={() => handleCopyClick(person.phone, `phone-${person.id}`)}
@@ -283,10 +283,10 @@ const PersonList = () => {
                               </button>
                             </div>
                           </td>
-                          <td className={`px-6 py-4 text-sm text-center text-slate-300 break-words ${colWidths.location}`}>
+                          <td className={`px-6 py-4 text-sm text-center justify-items-center  text-slate-300 break-words ${colWidths.location}`}>
                             {person.city}, {person.state}
                           </td>
-                          <td className={`px-6 py-4 text-sm text-center ${colWidths.actions}`}>
+                          <td className={`px-6 py-4 text-sm justify-items-center  text-center ${colWidths.actions}`}>
                             <button
                               onClick={() => handleDeleteClick(person.id)}
                               className="text-red-400 hover:text-red-300 font-semibold transition duration-200 flex items-center justify-center gap-1"
@@ -304,7 +304,7 @@ const PersonList = () => {
           </div>
         )}
 
-        {/* Delete Confirmation Modal */}
+        
         {isDeleting && personToDelete && (
           <div 
             className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm"

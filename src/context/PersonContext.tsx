@@ -3,10 +3,10 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import type { ReactNode } from 'react';
 import type { Person, FormData } from '../types';
 
-// Storage key as a constant for consistency
+
 const STORAGE_KEY = 'people';
 
-// Query keys as constants for consistency across the application
+
 const QUERY_KEYS = {
   people: ['people'],
 } as const;
@@ -20,7 +20,7 @@ interface PersonContextType {
   deletePerson: (id: string) => Promise<void>;
 }
 
-// Create a more strongly typed context with default values
+
 const PersonContext = createContext<PersonContextType>({
   people: [],
   isLoading: false,
@@ -30,7 +30,7 @@ const PersonContext = createContext<PersonContextType>({
   deletePerson: async () => {},
 });
 
-// Helper function to safely parse JSON from localStorage
+
 const getSavedPeople = (): Person[] => {
   try {
     const storedPeople = localStorage.getItem(STORAGE_KEY);
@@ -41,7 +41,7 @@ const getSavedPeople = (): Person[] => {
   }
 };
 
-// Helper function to safely save JSON to localStorage
+
 const savePeople = (people: Person[]): void => {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(people));
@@ -53,7 +53,7 @@ const savePeople = (people: Person[]): void => {
 export function PersonProvider({ children }: { children: ReactNode }) {
   const queryClient = useQueryClient();
 
-  // Query to fetch people data
+  
   const { 
     data: people = [], 
     isLoading,
@@ -62,10 +62,10 @@ export function PersonProvider({ children }: { children: ReactNode }) {
   } = useQuery<Person[], Error>({
     queryKey: QUERY_KEYS.people,
     queryFn: getSavedPeople,
-    staleTime: 1000 * 60 * 5, // 5 minutes
+    staleTime: 1000 * 60 * 5, 
   });
 
-  // Mutation to add a person
+ 
   const addPersonMutation = useMutation<Person[], Error, Person>({
     mutationFn: async (newPerson) => {
       const updatedPeople = [...people, newPerson];
@@ -80,7 +80,7 @@ export function PersonProvider({ children }: { children: ReactNode }) {
     }
   });
 
-  // Mutation to delete a person
+
   const deletePersonMutation = useMutation<Person[], Error, string>({
     mutationFn: async (id) => {
       const updatedPeople = people.filter((person) => person.id !== id);
@@ -95,7 +95,7 @@ export function PersonProvider({ children }: { children: ReactNode }) {
     }
   });
 
-  // Memoized add person function
+
   const addPerson = useCallback(async (data: FormData) => {
     const newPerson: Person = {
       id: crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(),
@@ -104,12 +104,12 @@ export function PersonProvider({ children }: { children: ReactNode }) {
     await addPersonMutation.mutateAsync(newPerson);
   }, [addPersonMutation]);
 
-  // Memoized delete person function
+  
   const deletePerson = useCallback(async (id: string) => {
     await deletePersonMutation.mutateAsync(id);
   }, [deletePersonMutation]);
 
-  // Memoize the context value to prevent unnecessary re-renders
+  
   const contextValue = useMemo(() => ({
     people,
     isLoading,
@@ -126,7 +126,7 @@ export function PersonProvider({ children }: { children: ReactNode }) {
   );
 }
 
-// Custom hook with better error messaging and type safety
+
 export function usePerson(): PersonContextType {
   const context = useContext(PersonContext);
   return context;
